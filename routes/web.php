@@ -12,9 +12,10 @@ return view('admin');
 });
 Route::post('/store',[TodoController::class , 'store'])-> name('store');
 
-Route::get('/edit/{id}', [TodoController::class,'edit'])-> name('edit');
+Route::get('/edit/{todo}', [TodoController::class,'edit'])-> name('edit');
 
-// Route::post('/update/{todo}',[TodoController::class,'update'])-> name('update');
+Route::post('/update/{todo}',[TodoController::class,'update'])-> name('update');
+Route::post('/delete/{todo}',[TodoController::class,'delete'])-> name('delete');
 
 Route::get('/contact' ,function () {
     return view('welcome');
