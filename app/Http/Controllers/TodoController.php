@@ -12,6 +12,7 @@ class TodoController extends Controller
         // dd($todos);
         return view('home',['todos' => $todos]); 
     }
+
     public function store(Request $request){
         // dd($request-> post('title'));
         // dd($request);
@@ -26,17 +27,28 @@ class TodoController extends Controller
         // return redirect('/');
         return redirect(route('home'));
     }
-    public function edit(Todo $todo){
+
+    public function edit($todo){
         $todo = Todo::find($todo);
         // dd($todo);
-        return view('update',[compact('todo')]);
+        return view('update',compact('todo'));
     }
-    public function update(Request $request , Todo $todo){
-        $validatedData = $request ->validate([
-            'title' => 'required|max:100',
-        ]);
-        $todo->title = $validatedData['title'];
-        $todo ->save();
-        return redirect(route('home'));       
-    }
+
+        public function update(Request $request , Todo $todo){
+            $validatedData = $request ->validate([
+                'title' => 'required|max:100',
+            ]);
+            // dd($validatedData);
+            // $todo-> update(['name' => $validatedData['title']]);  option 1
+            // $todo-> update($validatedData);                       option 2
+
+            $todo->name = $validatedData['title'];                 
+            $todo ->save();
+            return redirect(route('home'));         
+        }
+
+        public function delete(Todo $todo){
+            $todo -> delete();
+            return back();
+        }
 }

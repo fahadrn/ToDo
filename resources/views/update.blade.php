@@ -14,7 +14,10 @@
             <form method="POST" action="{{ route('update',$todo->id) }}">
                 @csrf
                 <label for="title">Title*</label>
-                <input type="text" name="title" value="{{$todo->title}}" id="title" class="form-control mb-2"/>
+                <input type="text" name="title" value="{{old('title') ? old('title') : $todo->name}}" id="title" class="form-control mb-2"/>
+                @foreach($errors-> get('title') as  $err)
+                    <small class="text danger">{{ $err }}</small>
+                @endforeach
                 <input type="submit" class="btn btn-dark btn-block" value="Update"/>
             </form>
         </div>
